@@ -27,7 +27,7 @@ public class TransacaoService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void criarTransacao(TransacaoDTO transacao) throws Exception {
+    public Transacao criarTransacao(TransacaoDTO transacao) throws Exception {
         User remetente = (User) usuarioService.findById(transacao.remetente_id());
         User destinatario = (User) usuarioService.findById(transacao.destinatario_id());
 
@@ -37,18 +37,20 @@ public class TransacaoService {
             throw new Exception("Transação não autorizada");
         }
 
-        Transacao novatransacao = new Transacao();
-        novatransacao.setQuantidade(transacao.quantidade());
-        novatransacao.setRemetente((Usuario) remetente);
-        novatransacao.setDestinatario((Usuario) destinatario);
-        novatransacao.setTimestamp(LocalDateTime.now());
+        Transacao novaTransacao = new Transacao();
+        novaTransacao.setQuantidade(transacao.quantidade());
+        novaTransacao.setRemetente((Usuario) remetente);
+        novaTransacao.setDestinatario((Usuario) destinatario);
+        novaTransacao.setTimestamp(LocalDateTime.now());
 
-        ((Usuario) remetente).setValor(((Usuario) remetente).getValor().subtract(transacao.quantidade()));
-        ((Usuario) destinatario).setValor(((Usuario) destinatario).getValor().add(transacao.quantidade()));
+        ((Usuario) remetente).setSaldo(((Usuario) remetente).getSaldo().subtract(transacao.quantidade()));
+        ((Usuario) destinatario).setSaldo(((Usuario) destinatario).getSaldo().add(transacao.quantidade()));
 
-        repository.save(novatransacao);
+        repository.save(novaTransacao);
         usuarioService.editar((Usuario) remetente);
         usuarioService.editar((Usuario) destinatario);
+
+        return novaTransacao;
     }
 
     public boolean autorizarTransacao(Usuario remetente, BigDecimal quantidade){

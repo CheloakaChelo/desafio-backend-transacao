@@ -29,6 +29,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioList, HttpStatus.OK);
     }
 
+    @GetMapping("/{documento}")
+    public ResponseEntity<Usuario> findByDocumento(@PathVariable String documento) throws Exception {
+        Usuario usuarioFind = service.findByDocumento(documento);
+        return new ResponseEntity<>(usuarioFind, HttpStatus.OK);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.br.desafio_backend_transacao.service;
 
+import com.br.desafio_backend_transacao.dto.UsuarioDTO;
 import com.br.desafio_backend_transacao.model.TipoUsuario;
 import com.br.desafio_backend_transacao.model.entity.Usuario;
 import com.br.desafio_backend_transacao.repository.UsuarioRepository;
@@ -30,8 +31,9 @@ public class UsuarioService {
         return repository.findUsuarioByDocumento(documento).orElseThrow(() -> new Exception("não foi possível encontrar o usuário"));
     }
 
-    public Usuario inserir(@RequestBody Usuario usuario){
-        Usuario novoUsuario = repository.save(usuario);
+    public Usuario inserir(UsuarioDTO data){
+        Usuario novoUsuario = new Usuario(data);
+        repository.save(novoUsuario);
         return novoUsuario;
     }
 
@@ -51,7 +53,7 @@ public class UsuarioService {
             throw new Exception("O lojista não possui autorização para realizar transações");
         }
 
-        if (remetente.getValor().compareTo(quantidade) < 0){
+        if (remetente.getSaldo().compareTo(quantidade) < 0){
             throw new Exception("saldo insuficiente");
         }
     }

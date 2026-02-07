@@ -24,4 +24,4 @@ O sistema permite a criação de contas, processamento de pagamentos e transfer�
 ## ⚙️ Como Rodar o Projeto
 
 ### Pré-requisitos
-* **Ou** JDK 17 e Maven.
+* JDK 17 e Maven.

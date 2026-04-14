@@ -5,12 +5,14 @@ import com.br.desafio_backend_transacao.model.TipoUsuario;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
 @Entity(name = "usuarios")
 @Table(name = "usuarios")
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(of= "id")
 public class Usuario {
 

@@ -31,10 +31,9 @@ public class UsuarioService {
         return repository.findUsuarioByDocumento(documento).orElseThrow(() -> new Exception("não foi possível encontrar o usuário"));
     }
 
-    public Usuario inserir(UsuarioDTO data){
+    public Usuario inserir(@RequestBody UsuarioDTO data){
         Usuario novoUsuario = new Usuario(data);
-        repository.save(novoUsuario);
-        return novoUsuario;
+        return repository.save(novoUsuario);
     }
 
     public Usuario editar(@RequestBody Usuario usuario){

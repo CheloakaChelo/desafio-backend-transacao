@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuario")
@@ -35,5 +36,11 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioFind, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Usuario> deletarUsuario(@PathVariable Long id) throws Exception {
+        Usuario usuarioDelete = service.findById(id);
+        service.deletar(id);
+        return ResponseEntity.ok(usuarioDelete);
+    }
 
 }

@@ -3,6 +3,7 @@ package com.br.desafio_backend_transacao.model.entity;
 import com.br.desafio_backend_transacao.dto.UsuarioDTO;
 import com.br.desafio_backend_transacao.model.TipoUsuario;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @Table(name = "usuarios")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of= "id")
 public class Usuario {
 
@@ -38,11 +40,12 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
 
     public Usuario(UsuarioDTO data){
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.documento = documento;
-        this.email = email;
-        this.senha = senha;
-        this.saldo = saldo;
+        this.nome = data.nome();
+        this.sobrenome = data.sobrenome();
+        this.documento = data.documento();
+        this.email = data.email();
+        this.senha = data.senha();
+        this.saldo = data.saldo();
+        this.tipoUsuario = data.tipoUsuario();
     }
 }
